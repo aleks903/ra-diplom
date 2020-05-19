@@ -5,26 +5,26 @@ import {
   compose,
 } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
-import { topSalesEpics } from '../epics/topSalesEpics.js';
+import { topSalesEpics } from '../epics/topSalesEpics';
 import {
   fetchCatalogCategoriesEpics,
   fetchCatalogItemsEpics,
   fetchCatalogCategoriesChangeEpics,
   searchChangeEpics,
-} from '../epics/catalogEpics.js';
-import { productEpics } from '../epics/productEpics.js';
-import { sendOrderEpics } from '../epics/sendOrderEpics.js';
-import topSalesReducer from '../reducers/topSalesReducer.js';
-import catalogReducer from '../reducers/catalogReducer.js';
-import productReducer from '../reducers/productReducer.js';
-import basketProductReducer from '../reducers/basketProductReducer.js';
-import sendOrderReducer from '../reducers/sendOrderReducer.js';
+} from '../epics/catalogEpics';
+import { productEpics } from '../epics/productEpics';
+import { sendOrderEpics } from '../epics/sendOrderEpics';
+import topSalesReducer from '../reducers/topSalesReducer';
+import catalogReducer from '../reducers/catalogReducer';
+import productReducer from '../reducers/productReducer';
+import basketProductReducer from '../reducers/basketProductReducer';
+import sendOrderReducer from '../reducers/sendOrderReducer';
 
 const reducer = combineReducers({
   topSalesList: topSalesReducer,
   catalogList: catalogReducer,
   productItem: productReducer,
-  basketProducts: basketProductReducer,
+  basket: basketProductReducer,
   sendOrder: sendOrderReducer,
 });
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import TopSales from './TopSales.js';
-import Catalog from './Catalog.js';
+import TopSales from './TopSales';
+import Catalog from './Catalog';
 
 export default function PageHome() {
   return (

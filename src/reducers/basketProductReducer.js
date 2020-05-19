@@ -1,7 +1,7 @@
 import {
   BASKET_INIT_PRODUCT,
   BASKET_CHANGE_PRODUCT,
-} from '../actions/actionTypes.js';
+} from '../types/basketProductTyps';
 
 const initialState = {
   products: [],
@@ -16,7 +16,9 @@ export default function basketProductReducer(state = initialState, action) {
       };
     }
     case BASKET_CHANGE_PRODUCT: {
+      
       const { itemProduct } = action.payload;
+      console.log(itemProduct);
       return {
         products: itemProduct,
       };

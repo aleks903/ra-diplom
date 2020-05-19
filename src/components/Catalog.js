@@ -4,8 +4,8 @@ import {
   fetchCatalogCategories,
   fetchCatalogCategoriesChange,
   fetchCatalogItemsRequest,
-} from '../actions/actionCreators.js';
-import Card from './Card.js';
+} from '../actions/catalogActions';
+import Card from './Card';
 
 export default function Catalog() {
   const {

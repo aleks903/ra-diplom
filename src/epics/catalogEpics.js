@@ -7,18 +7,19 @@ import {
   catchError,
   mergeMap,
 } from 'rxjs/operators';
+import queryString from 'query-string';
 import {
   FETCH_CATALOG_CATEGORIES_REQUEST,
   FETCH_CATALOG_ITEMS_REQUEST,
   FETCH_CATALOG_CATEGORIES_CHANGE,
   SEARCH_CHANGE,
-} from '../actions/actionTypes.js';
+} from '../types/catalogTypes';
 import {
   fetchCatalogCategoriesSuccess,
   fetchCatalogItemsSucces,
   fetchCatalogFailure,
   fetchCatalogItemsRequest,
-} from '../actions/actionCreators.js';
+} from '../actions/catalogActions';
 import store from '../store';
 
 export const fetchCatalogCategoriesEpics = (action$) => action$.pipe(
@@ -26,7 +27,7 @@ export const fetchCatalogCategoriesEpics = (action$) => action$.pipe(
   map(() => store.getState().catalogList),
   switchMap(() => ajax.getJSON(`${process.env.REACT_APP_URL}categories`).pipe(
     mergeMap((dataCategory) => [fetchCatalogCategoriesSuccess(dataCategory), fetchCatalogItemsRequest()]),
-    catchError((e) => of(fetchCatalogFailure(e))),
+    catchError((error) => of(fetchCatalogFailure(error))),
   )),
 );
 
@@ -38,15 +39,16 @@ export const fetchCatalogItemsEpics = (action$) => action$.pipe(
       items,
       search
     } = store.getState().catalogList;
-    const queryUrl = new URLSearchParams();
-    search && queryUrl.append('q', search);
-    activCategory && queryUrl.append('categoryId', activCategory);
-    items.length && queryUrl.append('offset', items.length);
+
+    const queryUrl = queryString.stringify({q: search, categoryId: activCategory, offset: items.length}, {
+      skipEmptyString: true
+    });
+
     return `?${queryUrl}`;
   }),
-  switchMap((o) => ajax.getJSON(`${process.env.REACT_APP_URL}items${o}`).pipe(
+  switchMap((query) => ajax.getJSON(`${process.env.REACT_APP_URL}items${query}`).pipe(
     map((dataItems) => fetchCatalogItemsSucces(dataItems)),
-    catchError((e) => of(fetchCatalogFailure(e))),
+    catchError((error) => of(fetchCatalogFailure(error))),
   )),
 );
 

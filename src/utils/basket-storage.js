@@ -1,4 +1,4 @@
-export function funcChangeBasket(itemProduct) {
+export function changeBasket(itemProduct) {
   let productList = JSON.parse(localStorage.getItem('basketProdct'));
   const indexProducts = productList.findIndex((item) => item.id === itemProduct.id && item.size === itemProduct.size);
   if (indexProducts !== -1) {
@@ -19,14 +19,18 @@ export function funcChangeBasket(itemProduct) {
   return productList;
 }
 
-export function funcRemoveBasket(idAndSize) {
+export function removeBasket(idAndSize) {
   let productList = JSON.parse(localStorage.getItem('basketProdct'));
   productList = productList.filter((item) => `${item.id}${item.size}` !== idAndSize);
   localStorage.setItem('basketProdct', JSON.stringify(productList));
   return productList;
 }
 
-export function funcClearBasket() {
+export function clearBasket() {
   localStorage.setItem('basketProdct', JSON.stringify([]));
   return [];
+}
+
+export function getLastBsket() {
+  return JSON.parse(localStorage.getItem('basketProdct'));
 }

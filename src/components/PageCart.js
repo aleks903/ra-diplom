@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { basketChangeProduct } from '../actions/actionCreators.js';
-import { funcRemoveBasket } from '../funcAddBasket.js';
-import SendOrder from './SendOrder.js';
+import { basketChangeProduct, basketInitProduct } from '../actions/basketProductActions';
+import { removeBasket, getLastBsket } from '../utils/basket-storage';
+import SendOrder from './SendOrder';
 
 export default function PageCart() {
-  const { products } = useSelector((state) => state.basketProducts);
+  const { products } = useSelector((state) => state.basket);
   const dispatch = useDispatch();
   const history = useHistory();
+  console.log(products);
   const totalSum = products.reduce((sum, item) => sum + (item.price * item.amount), 0);
+
+  useEffect(() => {
+    if (getLastBsket()) {
+      dispatch(basketInitProduct(getLastBsket()));
+    }
+  }, []);
 
   const handleProduct = (event, id) => {
     event.preventDefault();
@@ -17,7 +24,7 @@ export default function PageCart() {
   };
 
   const handleRemoveProduct = (idSize) => {
-    dispatch(basketChangeProduct(funcRemoveBasket(idSize)));
+    dispatch(basketChangeProduct(removeBasket(idSize)));
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Catalog from './Catalog.js';
-import { searchChange, searchClear } from '../actions/actionCreators.js';
+import Catalog from './Catalog';
+import { searchChange, searchClear } from '../actions/catalogActions';
 
 export default function PageCatalog() {
   const { search } = useSelector((state) => state.catalogList);

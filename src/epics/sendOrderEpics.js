@@ -6,8 +6,8 @@ import {
   switchMap,
   catchError,
 } from 'rxjs/operators';
-import { SEND_ORDER_REQUEST } from '../actions/actionTypes.js';
-import { sendOrderSuccess, sendOrderFailure } from '../actions/actionCreators.js';
+import { SEND_ORDER_REQUEST } from '../types/sendOrderTypes';
+import { sendOrderSuccess, sendOrderFailure } from '../actions/sendOrderActions';
 
 export const sendOrderEpics = (action$) => action$.pipe(
   ofType(SEND_ORDER_REQUEST),

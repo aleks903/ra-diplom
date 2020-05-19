@@ -3,7 +3,7 @@ import {
   FETCH_PRODUCT_REQUEST,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
-} from '../actions/actionTypes.js';
+} from '../types/productTypes';
 
 const initialState = {
   item: {},

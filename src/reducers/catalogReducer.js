@@ -7,7 +7,7 @@ import {
   FETCH_CATALOG_FAILURE,
   SEARCH_CHANGE,
   SEARCH_CLEAR,
-} from '../actions/actionTypes.js';
+} from '../types/catalogTypes';
 
 const initialState = {
   categories: [{ id: 0, title: 'Все' }],

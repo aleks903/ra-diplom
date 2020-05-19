@@ -3,10 +3,10 @@ import {
   SEND_ORDER_REQUEST,
   SEND_ORDER_SUCCESS,
   SEND_ORDER_FAILURE,
-} from '../actions/actionTypes.js';
+} from '../types/sendOrderTypes';
 
 const initialState = {
-  request: null,
+  response: null,
   loading: false,
   error: null,
 };
@@ -16,11 +16,17 @@ export default function sendOrderReducer(state = initialState, action) {
     case SEND_ORDER_INIT:
       return { ...initialState };
     case SEND_ORDER_REQUEST:
-      return { request: null, loading: true, error: null };
+      return {
+        ...state,
+        response: null,
+        loading: true,
+        error: null,
+      };
     case SEND_ORDER_SUCCESS: {
       const { success } = action.payload;
       return {
-        request: success,
+        ...state,
+        response: success,
         loading: false,
         error: null,
       };
@@ -28,7 +34,8 @@ export default function sendOrderReducer(state = initialState, action) {
     case SEND_ORDER_FAILURE: {
       const { error } = action.payload;
       return {
-        request: null,
+        ...state,
+        response: null,
         loading: false,
         error,
       };

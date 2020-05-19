@@ -3,7 +3,7 @@ import {
   FETCH_TOP_SALES_SUCCESS,
   FETCH_TOP_SALES_FAILURE,
   FETCH_TOP_SALES_CLEAR,
-} from '../actions/actionTypes.js';
+} from '../types/topSalesTypes';
 
 const initialState = {
   items: [],

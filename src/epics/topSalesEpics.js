@@ -6,8 +6,8 @@ import {
   switchMap,
   catchError,
 } from 'rxjs/operators';
-import { FETCH_TOP_SALES_REQUEST } from '../actions/actionTypes.js';
-import { fetchTopSalesSuccess, fetchTopSalesFailure } from '../actions/actionCreators.js';
+import { FETCH_TOP_SALES_REQUEST } from '../types/topSalesTypes';
+import { fetchTopSalesSuccess, fetchTopSalesFailure } from '../actions/topSalesActions';
 
 export const topSalesEpics = (action$) => action$.pipe(
   ofType(FETCH_TOP_SALES_REQUEST),

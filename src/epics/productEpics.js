@@ -6,8 +6,8 @@ import {
   switchMap,
   catchError,
 } from 'rxjs/operators';
-import { FETCH_PRODUCT_REQUEST } from '../actions/actionTypes.js';
-import { fetchProductSuccess, fetchProductFailure } from '../actions/actionCreators.js';
+import { FETCH_PRODUCT_REQUEST } from '../types/productTypes';
+import { fetchProductSuccess, fetchProductFailure } from '../actions/productActions';
 
 export const productEpics = (action$) => action$.pipe(
   ofType(FETCH_PRODUCT_REQUEST),

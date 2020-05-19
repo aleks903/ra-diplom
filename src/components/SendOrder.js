@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { basketChangeProduct, sendOrderRequest, sendOrderInit } from '../actions/actionCreators.js';
-import { funcClearBasket } from '../funcAddBasket.js';
+import { basketChangeProduct } from '../actions/basketProductActions';
+import { sendOrderRequest, sendOrderInit } from '../actions/sendOrderActions';
+import { clearBasket } from '../utils/basket-storage';
 
 export default function SendOrder() {
-  const { products } = useSelector((state) => state.basketProducts);
-  const { request, loading, error } = useSelector((state) => state.sendOrder);
+  const { products } = useSelector((state) => state.basket);
+  const { response, loading, error } = useSelector((state) => state.sendOrder);
   const [changeField, setChangeField] = useState({ phone: '', address: '' });
   const dispatch = useDispatch();
 
@@ -14,10 +15,10 @@ export default function SendOrder() {
   }, []);
 
   useEffect(() => {
-    if (request === 204) {
-      dispatch(basketChangeProduct(funcClearBasket()));
+    if (response === 204) {
+      dispatch(basketChangeProduct(clearBasket()));
     }
-  }, [request]);
+  }, [response]);
 
   const send = () => {
     dispatch(sendOrderRequest({
@@ -47,7 +48,7 @@ export default function SendOrder() {
     send();
   };
 
-  if (request === 204) {
+  if (response === 204) {
     return (<div className="order-success">Ваш заказ успешно оформлен.</div>);
   }
 

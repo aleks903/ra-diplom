@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { searchChange, basketInitProduct } from '../actions/actionCreators.js';
+import { searchChange } from '../actions/catalogActions';
+import { basketInitProduct } from '../actions/basketProductActions';
+import { clearBasket, getLastBsket } from '../utils/basket-storage';
 
 export default function Header() {
   const [searchFormVisible, setSerchFormVisible] = useState(true);
   const [valueSearch, setValueSearch] = useState('');
-  const { products } = useSelector((state) => state.basketProducts);
+  const { products } = useSelector((state) => state.basket);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('basketProdct'))) {
-      dispatch(basketInitProduct(JSON.parse(localStorage.getItem('basketProdct'))));
+    if (getLastBsket()) {
+      dispatch(basketInitProduct(getLastBsket()));
     } else {
-      localStorage.setItem('basketProdct', JSON.stringify([]));
+      clearBasket();
     }
   }, []);
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { fetchProductRequest, basketChangeProduct, fetchProductClear } from '../actions/actionCreators.js';
-import { funcChangeBasket } from '../funcAddBasket.js';
+import { fetchProductRequest, fetchProductClear } from '../actions/productActions';
+import { changeBasket } from '../utils/basket-storage';
 
 export default function PageProduct(props) {
   const { item, loading, error } = useSelector((state) => state.productItem);
@@ -61,15 +61,15 @@ export default function PageProduct(props) {
   };
 
   const handleAddProduct = () => {
-    dispatch(basketChangeProduct(
-      funcChangeBasket({
-        id: item.id,
-        title: item.title,
-        size: avalibleSize.selectedSize,
-        price: item.price,
-        amount,
-      })
-    ));
+    const product = {
+      id: item.id,
+      title: item.title,
+      size: avalibleSize.selectedSize,
+      price: item.price,
+      amount,
+    };
+    changeBasket(product);
+
     dispatch(fetchProductClear());
     history.push('/cart');
   };
